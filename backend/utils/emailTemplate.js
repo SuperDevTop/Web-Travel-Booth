@@ -1,12 +1,10 @@
 export const forgotMessage = (resetUrl, user) => {
     return `   
-      Hello ${user.name}
-      Tap the link below to reset your account password. If you didn't request 
-      new password, you can safely delete this email.
-      "${resetUrl}"
-      If that doesn't work, copy and paste the following link in your browser.
-      Best regards,
-      Travelbooth Team              
+      Dear ${user.name}
+      Please click the link below to reset your account password. If you did not request this password reset, you can safely disregard this email.
+      ${resetUrl}
+      If the above link does not work, please copy and paste the following URL into your web browser.
+      Best regards, The Travelbooth Team            
       `
   }
   

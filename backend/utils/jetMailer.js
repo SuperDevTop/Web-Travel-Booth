@@ -18,7 +18,7 @@ export const sendEmail = async ({to, username, subject, text}) => {
         {
           From: {
             Email: process.env.EMAIL, // Sender's email
-            Name: "Hi Deadline"
+            Name: "Travel Booth"
           },
           To: [
             {
@@ -56,7 +56,7 @@ export const sendEmailUsers = async (
         {
           From: {
             Email: process.env.EMAIL, // Sender's email
-            Name: "Hi Deadline"
+            Name: "Travel Booth"
           },
           To: [
             {
