@@ -18,31 +18,31 @@ import logo from '../assets/logo.png';
     // const history = useHistory();
     console.log(document.getElementsByClassName("footer"))
     useEffect(() => {
-      const user = JSON.parse(localStorage.getItem("userInfo"));
+      // const user = JSON.parse(localStorage.getItem("userInfo"));
       const header = document.getElementById('header');
-      if (user){
-        if(user.isAdmin === true){
-          document.getElementById('AdminSidebar').style.display="none";
-          document.getElementById('mySidebar').style.display="none";
-          header.classList.remove("d-flex");
-          header.classList.add("hide");
-          document.getElementsByClassName("footer")[0].style.display = "none";
-        }
-        else{
-          document.getElementById('mySidebar').style.display="none";
-          document.getElementById('AdminSidebar').style.display="none";
-          header.classList.remove("d-flex");
-          header.classList.add("hide");
-          document.getElementsByClassName("footer")[0].style.display = "none";
-        }
-      }
-      else{
+      // if (user){
+      //   if(user.isAdmin === true){
+      //     document.getElementById('AdminSidebar').style.display="none";
+      //     document.getElementById('mySidebar').style.display="none";
+      //     header.classList.remove("d-flex");
+      //     header.classList.add("hide");
+      //     document.getElementsByClassName("footer")[0].style.display = "none";
+      //   }
+      //   else{
+      //     document.getElementById('mySidebar').style.display="none";
+      //     document.getElementById('AdminSidebar').style.display="none";
+      //     header.classList.remove("d-flex");
+      //     header.classList.add("hide");
+      //     document.getElementsByClassName("footer")[0].style.display = "none";
+      //   }
+      // }
+      // else{
         document.getElementById('mySidebar').style.display="none";
         document.getElementById('AdminSidebar').style.display="none";
         header.classList.remove("d-flex");
         header.classList.add("hide");
         document.getElementsByClassName("footer")[0].style.display = "none";
-      }
+      // }
     }, []);
   
     return (

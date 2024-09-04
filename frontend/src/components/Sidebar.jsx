@@ -83,78 +83,78 @@ class Sidebar extends React.Component {
           </Button>        
 
         <Nav className="px-4 pt-2" style={{marginTop:this.state.data !== true&&"75px"}}>
-          <Link to="/capture" className="w-100" onClick={this.handleClick}>
-          <Nav.Item>
-            <Nav.Link  href="/capture">
+          {/* <Link to="/capture" className="w-100" onClick={this.handleClick}> */}
+          <Nav.Item className="w-100" onClick={this.handleClick}>
+            <Nav.Link  href="/capture" className="w-100">
               <i className="fa fa-cloud-upload sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Capture</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to="/posts" className="w-100" onClick={this.handleClick}>
-          <Nav.Item>
-            <Nav.Link href="/posts">
+          {/* </Link> */}
+          {/* <Link to="/posts" className="w-100" onClick={this.handleClick}> */}
+          <Nav.Item className="w-100" onClick={this.handleClick}>
+            <Nav.Link href="/posts" className="w-100">
               <i className="fa fa-home sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">My Posts</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to ="/blog" className="w-100" onClick={this.handleClick}>
-          <Nav.Item>
-            <Nav.Link href="/blog">
+          {/* </Link>
+          <Link to ="/blog" className="w-100" onClick={this.handleClick}> */}
+          <Nav.Item className="w-100" onClick={this.handleClick}>
+            <Nav.Link href="/blog" className="w-100">
               <i className="fas fa-blog sidebar-item-icon"></i>
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Blogs</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to ="/explore" className="w-100" onClick={this.handleClick}>
-          <Nav.Item className="w-100">
-            <Nav.Link href="/explore">
+          {/* </Link>
+          <Link to ="/explore" className="w-100" onClick={this.handleClick}> */}
+          <Nav.Item className="w-100" onClick={this.handleClick}>
+            <Nav.Link href="/explore" className="w-100">
               <i className="fa fa-eye sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Explore</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to ="/chats" className="w-100" onClick={this.handleChatClick}>
-          <Nav.Item className="w-100">
-            <Nav.Link href="/chats">
+          {/* </Link>
+          <Link to ="/chats" className="w-100" onClick={this.handleChatClick}> */}
+          <Nav.Item className="w-100" onClick={this.handleClick}>
+            <Nav.Link href="/chats" className="w-100">
               <i className="fa fa-comment sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Chat</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to ="/notifications" className="w-100" onClick={this.handleClick}>
-          <Nav.Item className="w-100">
-            <Nav.Link href="/notifications">
+          {/* </Link>
+          <Link to ="/notifications" className="w-100" onClick={this.handleClick}> */}
+          <Nav.Item className="w-100" onClick={this.handleClick}>
+            <Nav.Link href="/notifications" className="w-100">
               <i className="fa fa-bell sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Notifications</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to ="/account" className="w-100" onClick={this.handleClick}>
-          <Nav.Item className="w-100">
-            <Nav.Link href="/account">
+          {/* </Link>
+          <Link to ="/account" className="w-100" onClick={this.handleClick}> */}
+          <Nav.Item className="w-100" onClick={this.handleClick}>
+            <Nav.Link href="/account" className="w-100">
               <i className="fa fa-user sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">User Account</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
+          {/* </Link> */}
           {/* <Nav.Item>
             <Nav.Link href='/contact'>
               <i className='fa fa-envelope sidebar-item-icon' />
               <span className='sidebar-item-text'>Contact Us</span>
             </Nav.Link>
           </Nav.Item> */}
-          <Link to ="/aboutus" className="w-100" onClick={this.handleClick}>
-          <Nav.Item>
-            <Nav.Link href="/aboutus">
+          {/* <Link to ="/aboutus" className="w-100" onClick={this.handleClick}> */}
+          <Nav.Item className="w-100" onClick={this.handleClick}>
+            <Nav.Link href="/aboutus" className="w-100">
               <i className="fa fa-users sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">About Us</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
+          {/* </Link> */}
           <Nav.Item onClick={this.logoutHandler} className="w-100">
-            <Nav.Link>
+            <Nav.Link className="w-100">
               <i className="fa fa-sign-out sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Logout</span>
             </Nav.Link>

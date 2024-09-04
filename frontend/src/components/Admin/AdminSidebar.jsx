@@ -2,8 +2,6 @@ import React from 'react'
 // import { useHistory } from 'react-router-dom';
 import { Nav, Button } from "react-bootstrap";
 import classNames from "classnames";
-import { Link } from 'react-router-dom';
-// import logo from '../../assets/logo.png'
 
 class AdminSidebar extends React.Component {
   // const history = useHistory();
@@ -33,54 +31,54 @@ class AdminSidebar extends React.Component {
           </Button>
 
         <Nav className="px-4 pt-2" style={{marginTop:"75px"}}>
-          <Link to='/admin/dashboard' className="w-100">
+          {/* <Link to='/admin/dashboard' className="w-100"> */}
           <Nav.Item className="w-100">
-            <Nav.Link href="/admin/dashboard" className="">
+            <Nav.Link href="/admin/dashboard" className="w-100">
               <i className="bi bi-grid sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Dashboard</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to='/admin/users' className="w-100">
+          {/* </Link> */}
+          {/* <Link to='/admin/users' className="w-100"> */}
           <Nav.Item className="w-100">
-            <Nav.Link href="/admin/users">
+            <Nav.Link href="/admin/users" className="w-100">
               <i className="fa fa-users sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Users</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to='/admin/posts' className="w-100">
+          {/* </Link>
+          <Link to='/admin/posts' className="w-100"> */}
           <Nav.Item className="w-100">
-            <Nav.Link href="/admin/posts">
+            <Nav.Link href="/admin/posts" className="w-100">
               <i className="fa fa-cloud-upload sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Posts</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to='/admin/blog' className="w-100">
+          {/* </Link>
+          <Link to='/admin/blog' className="w-100"> */}
           <Nav.Item className="w-100">
-            <Nav.Link href='/admin/blog'>
+            <Nav.Link href='/admin/blog' className="w-100">
               <i className='fa fa-blog sidebar-item-icon' />
               <span className='sidebar-item-text d-none d-sm-none d-md-none d-lg-inline'>Blogs</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to='/admin/profile' className="w-100">
+          {/* </Link>
+          <Link to='/admin/profile' className="w-100"> */}
           <Nav.Item className="w-100">
-            <Nav.Link href="/admin/profile">
+            <Nav.Link href="/admin/profile" className="w-100">
               <i className="fa fa-user sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Profile</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
-          <Link to='/admin/enquiry' className="w-100">
+          {/* </Link>
+          <Link to='/admin/enquiry' className="w-100"> */}
           <Nav.Item className="w-100">
-            <Nav.Link href="/admin/enquiry">
+            <Nav.Link href="/admin/enquiry" className="w-100">
               <i className="bi bi-question-circle sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Enquiry</span>
             </Nav.Link>
           </Nav.Item>
-          </Link>
+          {/* </Link> */}
           <Nav.Item onClick={this.logoutHandler} className="w-100">
             <Nav.Link >
               <i className="fa fa-sign-out sidebar-item-icon" />

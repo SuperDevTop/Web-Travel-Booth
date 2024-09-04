@@ -193,8 +193,6 @@ const postForgotPassword = asyncHandler(async (req, res) => {
     user.resetToken = resetToken;
     await user.save()
     // console.log("New user", user);
-
-    //const resetUrl = `http://localhost:3000/resetPassword/${resetToken}`
     const resetUrl = `http://162.240.225.252:3000/resetPassword/${resetToken}`
     const message = forgotMessage(resetUrl, user)
   // console.log("username", user.name, user.email)

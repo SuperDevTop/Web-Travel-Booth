@@ -3,6 +3,6 @@ import { postResetPassword } from '../controllers/userControllers.js';
 
 const router = express.Router();
 
-router.post("/resetPassword", postResetPassword);
+router.post("/resetpassword", postResetPassword);
 
 export default router;
