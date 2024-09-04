@@ -4,7 +4,7 @@ import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
 import { useState } from "react";
 import axios from "axios";
-import { useToast, Link } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { ChatState } from "../../Context/ChatProvider";
 
@@ -17,8 +17,8 @@ const Login = () => {
   const [password, setPassword] = useState();
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(false);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  // const [message, setMessage] = useState("");
+  // const [error, setError] = useState("");
 
   const history = useHistory();
   const { setUser } = ChatState();
@@ -79,11 +79,11 @@ const Login = () => {
     e.preventDefault();
     try {
         setLoading(true);
-        setMessage("");
-        setError("");
-        const res = await axios.post("api/user/forgotPassword", {email: emailer})
+        // setMessage("");
+        // setError("");
+        const res = await axios.post("/api/user/forgotPassword", {email: emailer})
         console.log("res",res);
-        setMessage(res.data.message);
+        // setMessage(res.data.message);
         console.log(res.data.message);
         toast({
           title: "Success",
@@ -94,7 +94,7 @@ const Login = () => {
           position: "bottom",
         });
     } catch (error) {
-        setError(error.response.data.error)
+        // setError(error.response.data.error)
         console.log("err",error);
         console.log(error.response.data.message);
         toast({
@@ -113,7 +113,7 @@ const Login = () => {
     <VStack spacing="10px">
       {status === false ? (
         <>
-          <FormControl id="email" isRequired>
+          <FormControl isRequired>
             <FormLabel>Email Address</FormLabel>
             <Input
               value={email}
@@ -122,7 +122,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
             />
           </FormControl>
-          <FormControl id="password" isRequired>
+          <FormControl isRequired>
             <FormLabel>Password</FormLabel>
             <InputGroup size="md">
               <Input
@@ -147,12 +147,12 @@ const Login = () => {
           >
             Login
           </Button>
-          <Link onClick={() => setStatus(!status)}>Forget Password</Link>
-          {/* <Link href='resetPassword/536aa0c624ea4c2d0b998b8049b05ab32d97038d'>reset</Link> */}
+          <p onClick={() => setStatus(!status)}>Forget Password</p>
+          {/* <Link href='/resetpassword/536aa0c624ea4c2d0b998b8049b05ab32d97038d'>reset</Link> */}
         </>
       ) : (
         <>
-          <FormControl id="emailer" isRequired>
+          <FormControl isRequired>
             <FormLabel>Email Address</FormLabel>
             <Input
               value={emailer}
@@ -170,7 +170,7 @@ const Login = () => {
           >
             Reset
           </Button>
-          <Link onClick={() => setStatus(!status)} >Back To Login</Link>
+          <p onClick={() => setStatus(!status)} >Back To Login</p>
         </>
       )}
     </VStack>

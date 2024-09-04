@@ -18,7 +18,7 @@ const MyChats = ({ fetchAgain }) => {
 
   const fetchChats = async () => {
     if(user){
-      if(user.email==="superadmin@gmail.com"){
+      if(user.isAdmin=== true){
         document.getElementById('mySidebar').style.display="none";
         document.getElementById('AdminSidebar').style.display="block";  
       }

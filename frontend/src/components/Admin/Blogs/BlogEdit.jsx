@@ -57,12 +57,13 @@ const BlogEdit = () => {
     setTitle(blog.title);
     setContent(blog.content);
     setOriginalImage(blog.image);
-  }, [blog.title, blog.content, blog.image]);
+  }, [blog.title, blog.content, blog.image, toast, blogId, user]);
+  console.log(originalImage);
 
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
     formData.append("image", e.target.files[0]);
-
+    
     try {
       const config = {
         headers: {

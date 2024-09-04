@@ -102,7 +102,7 @@ class App extends React.Component {
           <Route path="/notifications" component={NotificationsPage} />
           <Route path="/account" component={UserAccountPage} />
           <Route path="/aboutus" component={AboutUs} />
-          <Route path='/resetPassword/:id' component={ResetPassword} />
+          <Route path='/resetpassword/:id' component={ResetPassword} />
 
           <Route path="/admin/dashboard" component={DashboardPage} />      
           <Route path="/admin/users" component={UsersPage} />      
