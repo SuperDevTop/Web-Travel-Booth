@@ -37,7 +37,7 @@ const ResetPasswordComponent = () => {
         setLoading(true);
         // setMessage("");
         // setError("");
-        const res = await axios.post("/resetpassword/resetPassword", {
+        const res = await axios.post("/resetpassword/resetpassword", {
           password: newPassword,
           resetToken,
         });
