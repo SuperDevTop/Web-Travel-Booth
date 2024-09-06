@@ -3,7 +3,7 @@ import generateToken from '../config/generateToken.js';
 import User from '../models/userModel.js';
 import crypto from "crypto"
 import { sendEmail } from '../utils/jetMailer.js';
-import { forgotMessage } from '../utils/emailTemplate.js'
+import { forgotMessage, emailVerifyMessage } from '../utils/emailTemplate.js'
 
 //@description     Get or Search all users
 //@route           GET /api/user?search=
@@ -36,6 +36,31 @@ const GetUserById = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+
+//@description     Verify user email
+//@route           POST /api/user/emailverify
+//@access          Public
+const emailVerify = asyncHandler(async (req, res) => {
+  try {
+    const { _id, emailVerify  } = req.body
+    console.log(req.body)
+
+    const user = await User.findOne({ _id });
+    user.emailVerify = emailVerify || user.emailVerify;
+    const updatedUser = await user.save();
+    if ( updatedUser ){
+      return res.status(200).json({
+        message: `Registered Successfully`,
+      })
+    }else{
+      return res.status(403).json({
+        message: `Register Failed`,
+      })
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+});
 //@description     Register new user
 //@route           POST /api/user/
 //@access          Public
@@ -56,21 +81,46 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const user = await User.create({name, firstname, lastname, email, password, phone, pic});
 
-  if (user) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      firstname: user.firstname,
-      lastname: user.lastname,
-      email: user.email,
-      phone: user.phone,
-      isAdmin: user.isAdmin,
-      pic: user.pic,
-      token: generateToken(user._id),
-    });
-  } else {
-    res.status(400);
-    throw new Error("User not found");
+  // if (user) {
+  //   res.status(201).json({
+  //     _id: user._id,
+  //     name: user.name,
+  //     firstname: user.firstname,
+  //     lastname: user.lastname,
+  //     email: user.email,
+  //     phone: user.phone,
+  //     isAdmin: user.isAdmin,
+  //     pic: user.pic,
+  //     token: generateToken(user._id),
+  //   });
+  // } else {
+  //   res.status(400);
+  //   throw new Error("User not found");
+  // }
+  try {
+    // const emailUrl = `http://localhost:3000/emailverify/${user._id}`;
+    const emailUrl = `http://162.240.225.252/emailverify/${user._id}`;    
+    const message = emailVerifyMessage(emailUrl, user)
+  // console.log("username", user.name, user.email)
+    const result = await sendEmail({
+      to: email,
+      username: name,
+      subject: 'Email Verify Request',
+      text: message,
+    })
+
+    if ( result ){
+      return res.status(200).json({
+        message: `An email has been sent to ${email} with further instructions.`,
+      })
+    }else{
+      return res.status(403).json({
+        message: `An email has not been sent to ${email}.`,
+      })
+    }
+      
+  } catch (error) {
+    res.status(500).json({ error: error.message })
   }
 });
 
@@ -256,4 +306,5 @@ export {
   updateAdminProfile,
   postForgotPassword,
   postResetPassword,
+  emailVerify,
 };

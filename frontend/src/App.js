@@ -28,6 +28,7 @@ import NotFound from "./NotFound";
 import BlogManagement from "./components/Admin/Blogs/BlogManagement";
 import BlogEdit from "./components/Admin/Blogs/BlogEdit";
 import ResetPassword from "./Pages/ResetPassword";
+import EmailVerify from "./Pages/EmailVerify";
 // import ForgotPassword from "./components/Authentication/ForgotPassword";
 
 // function App() {
@@ -103,6 +104,7 @@ class App extends React.Component {
           <Route path="/account" component={UserAccountPage} />
           <Route path="/aboutus" component={AboutUs} />
           <Route path='/resetpassword/:id' component={ResetPassword} />
+          <Route path='/emailverify/:id' component={EmailVerify} />
 
           <Route path="/admin/dashboard" component={DashboardPage} />      
           <Route path="/admin/users" component={UsersPage} />      

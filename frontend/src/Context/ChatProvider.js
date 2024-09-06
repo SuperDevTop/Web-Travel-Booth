@@ -18,10 +18,11 @@ const ChatProvider = ({ children }) => {
     console.log(location)
     if(location.pathname.startsWith("/resetpassword")) {
       console.log("ok")
-      return;
-      
+      return;      
+    }else if(location.pathname.startsWith("/emailverify")){
+      return; 
     }
-    console.log("sdfsdff")
+    
     if (!userInfo) history.push("/");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);

@@ -7,9 +7,11 @@ import {
   updateProfile,
   updateAdminProfile,
   postForgotPassword,
+  emailVerify,
 } from '../controllers/userControllers.js'
 
 import { protect } from "../middleware/authMiddleware.js";
+import { emailVerifyProtect } from '../middleware/emailVerifyMiddleware.js';
 
 const router = express.Router();
 
@@ -17,9 +19,11 @@ router.route("/").get(protect, allUsers);
 router.route("/").post(registerUser);
 router.route("/:id").get(GetUserById);
 router.route("/update/:id").put(updateProfile);
-router.post("/login", authUser);
+// router.post("/login", authUser);
+router.route('/login').post(emailVerifyProtect, authUser);
 router.put("/updateadmin", updateAdminProfile);
 router.post("/forgotPassword", postForgotPassword);
+router.post("/emailverify", emailVerify)
 // router.post("/resetPassword", postResetPassword);
 
 

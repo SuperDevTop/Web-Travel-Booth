@@ -10,6 +10,7 @@ const users = [
         password: bcrypt.hashSync('123456', 10),
         pic: "/uploads/image-1716600590193.jpg",
         isAdmin: true,
+        emailVerify: 1,
     },
     {
         name: 'John Doe',
@@ -20,6 +21,7 @@ const users = [
         password: bcrypt.hashSync('123456', 10),
         pic: "/images/avatar.png",
         isAdmin: false,
+        emailVerify: 1,
     },
     {
         name: 'Jany Doe',
@@ -30,6 +32,7 @@ const users = [
         password: bcrypt.hashSync('123456', 10),
         pic: "/images/avatar.png",
         isAdmin: false,
+        emailVerify: 1,
     },
 ];
 
