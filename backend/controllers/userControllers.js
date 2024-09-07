@@ -46,6 +46,7 @@ const emailVerify = asyncHandler(async (req, res) => {
     console.log(req.body)
 
     const user = await User.findOne({ _id });
+    console.log("user", user)
     user.emailVerify = emailVerify || user.emailVerify;
     const updatedUser = await user.save();
     if ( updatedUser ){
@@ -100,7 +101,7 @@ const registerUser = asyncHandler(async (req, res) => {
   try {
     // const emailUrl = `http://localhost:3000/emailverify/${user._id}`;
     const emailUrl = `http://162.240.225.252/emailverify/${user._id}`;    
-    const message = emailVerifyMessage(emailUrl, user)
+    const message = emailVerifyMessage(emailUrl, name)
   // console.log("username", user.name, user.email)
     const result = await sendEmail({
       to: email,
@@ -229,7 +230,7 @@ const postForgotPassword = asyncHandler(async (req, res) => {
   try {
     const { email } = req.body
     console.log(req.body)
-    console.log("eeee", email)
+    // console.log("eeee", email)
     if (!email)
       return res.status(404).send({ error: 'Please enter your email' })
 
