@@ -100,7 +100,7 @@ const registerUser = asyncHandler(async (req, res) => {
   try {
     // const emailUrl = `http://localhost:3000/emailverify/${user._id}`;
     const emailUrl = `http://162.240.225.252/emailverify/${user._id}`;    
-    const message = emailVerifyMessage(emailUrl, user)
+    const message = emailVerifyMessage(emailUrl, name)
   // console.log("username", user.name, user.email)
     const result = await sendEmail({
       to: email,
