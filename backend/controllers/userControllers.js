@@ -242,6 +242,12 @@ const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
   // console.log(email, password)
   const user = await User.findOne({ email });
+
+  const expiretimeOverUser = await User.find({emailVerifyExpire: null, emailVerify:0});
+  console.log(expiretimeOverUser)
+  if(expiretimeOverUser){
+    await User.deleteMany({emailVerifyExpire: null, emailVerify:0})
+  };
 // console.log(user)
 //  console.log("first",await user.matchPassword(password))
   if (user && (await user.matchPassword(password))) {
