@@ -244,7 +244,7 @@ const authUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email });
 
   const expiretimeOverUser = await User.find({emailVerifyExpire: null, emailVerify:0});
-  console.log(expiretimeOverUser)
+  // console.log(expiretimeOverUser)
   if(expiretimeOverUser){
     await User.deleteMany({emailVerifyExpire: null, emailVerify:0})
   };
