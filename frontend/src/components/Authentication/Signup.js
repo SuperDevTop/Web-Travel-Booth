@@ -76,7 +76,7 @@ const Signup = () => {
         isClosable: true,
         position: "bottom",
       });
-      localStorage.setItem("userInfo", JSON.stringify(data.email));
+      // localStorage.setItem("userInfo", JSON.stringify(data.email));
       setPicLoading(false);
       // history.push("/capture");
     } catch (error) {

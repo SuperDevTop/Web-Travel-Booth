@@ -8,7 +8,7 @@ import logo from "../assets/logo.png";
 const Navbar = () => {
   
   const [notificationsCount, setCount] = useState(0);
-  const user = JSON.parse(localStorage.getItem("userInfo"));
+  const user = JSON.parse(localStorage.getItem("userInfo") === undefined ? "" :localStorage.getItem("userInfo"));
   const location = useLocation();
   const logoutHandler = () => {
     localStorage.removeItem("userInfo");
