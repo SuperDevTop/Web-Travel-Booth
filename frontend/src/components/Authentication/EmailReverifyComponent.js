@@ -10,6 +10,7 @@ const EmailReverifyComponent = () => {
     const [email, setEmail] = useState('');
     const toast = useToast();
     const [loading, setLoading] = useState(false);
+    // console.log("test")
     const handleSubmit = async (e) => {
     e.preventDefault();
     try {
