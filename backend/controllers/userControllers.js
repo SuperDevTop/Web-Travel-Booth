@@ -163,11 +163,11 @@ const registerUser = asyncHandler(async (req, res) => {
   try {
     // const emailUrl = `http://localhost:3000/emailverify/${user._id}`;
     const emailUrl = `http://162.240.225.252/emailverify/${user._id}`;    
-<<<<<<< HEAD
+// <<<<<<< HEAD
     
-=======
-    const message = emailVerifyMessage(emailUrl, name)
->>>>>>> 36dfb970b2c3f4ab3dbffc98b7fdc05f2f65fb06
+// =======
+//     const message = emailVerifyMessage(emailUrl, name)
+// >>>>>>> 36dfb970b2c3f4ab3dbffc98b7fdc05f2f65fb06
   // console.log("username", user.name, user.email)
   // Generate verification code (for now hardcoded as '12321')
     const emailVerifyCode = (Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000).toString();
