@@ -20,6 +20,12 @@ const userSchema = mongoose.Schema(
     },
     resetToken:{type:String,required:false},
     emailVerify:{ type: Number, required: false, default: 0},
+    emailVerifyExpire:{
+      type: Date,
+    },
+    emailVerifyCode: {
+      type: String,
+    },
   },
   { timestamps: true }
 );

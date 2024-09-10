@@ -13,6 +13,7 @@ import { useEffect } from "react";
 // import { useHistory } from "react-router";
 import Login from "../components/Authentication/Login";
 import Signup from "../components/Authentication/Signup";
+import EmailReverifyComponent from "../components/Authentication/EmailReverifyComponent";
 import logo from '../assets/logo.png'
 
 function Homepage() {
@@ -61,6 +62,7 @@ function Homepage() {
           <TabList mb="1em">
             <Tab>Login</Tab>
             <Tab>Sign Up</Tab>
+            <Tab>Email Verify</Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
@@ -68,6 +70,9 @@ function Homepage() {
             </TabPanel>
             <TabPanel>
               <Signup />
+            </TabPanel>
+            <TabPanel>
+              <EmailReverifyComponent />
             </TabPanel>
           </TabPanels>
         </Tabs>

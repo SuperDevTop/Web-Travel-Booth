@@ -8,12 +8,13 @@ export const forgotMessage = (resetUrl, user) => {
     `
 }
 
-export const emailVerifyMessage = (emailUrl, name) => {
+export const emailVerifyMessage = (emailUrl, name, emailVerifyCode) => {
   return `
   Dear ${name}
     Please click the link below to register your new account.
     ${emailUrl}
     If the above link does not work, please copy and paste the following URL into your web browser.
+    Please use this code to verify your account: ${emailVerifyCode}
     Best regards, The Travelbooth Team
   `
 }

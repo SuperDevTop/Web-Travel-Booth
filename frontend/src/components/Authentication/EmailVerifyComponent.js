@@ -1,14 +1,18 @@
 import { Button } from "@chakra-ui/button";
 import { VStack } from "@chakra-ui/layout";
+import { FormControl, FormLabel } from "@chakra-ui/form-control";
+import { Input } from "@chakra-ui/input";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { useHistory, useParams } from "react-router-dom";
+import { useState } from "react";
 
 
 export const EmailVerifyComponent = () => {
     const toast = useToast();
     const history = useHistory();
     const {id: _id} = useParams();
+    const [code, setCode] = useState();
 
    
     const submitHandler = async () => {
@@ -23,6 +27,7 @@ export const EmailVerifyComponent = () => {
               {
                 emailVerify:1,
                 _id,
+                emailVerifyCode: code,
               },
               config
             );
@@ -49,7 +54,13 @@ export const EmailVerifyComponent = () => {
     }
   return (
     <VStack spacing="10px">
-        
+        <FormControl id="first-name" isRequired>
+        <FormLabel>Email Verify Code</FormLabel>
+        <Input
+          placeholder="Enter Your verify code"
+          onChange={(e) => setCode(e.target.value)}
+        />
+      </FormControl>
       <Button
         colorScheme="blue"
         width="100%"

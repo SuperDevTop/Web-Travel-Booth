@@ -8,6 +8,7 @@ import {
   updateAdminProfile,
   postForgotPassword,
   emailVerify,
+  emailReverify,
 } from '../controllers/userControllers.js'
 
 import { protect } from "../middleware/authMiddleware.js";
@@ -23,7 +24,8 @@ router.route("/update/:id").put(updateProfile);
 router.route('/login').post(emailVerifyProtect, authUser);
 router.put("/updateadmin", updateAdminProfile);
 router.post("/forgotPassword", postForgotPassword);
-router.post("/emailverify", emailVerify)
+router.post("/emailverify", emailVerify);
+router.post("/emailreverify", emailReverify);
 // router.post("/resetPassword", postResetPassword);
 
 

@@ -5,6 +5,55 @@ import crypto from "crypto"
 import { sendEmail } from '../utils/jetMailer.js';
 import { forgotMessage, emailVerifyMessage } from '../utils/emailTemplate.js'
 
+//@description     Get all users email verification status
+//@route           GET /api/user/emailreverify
+//@access          Public
+const emailReverify = asyncHandler(async(req, res) => {
+  const { email } = req.body;
+
+  if (!email)
+    return res.status(404).json({ message: 'Please enter your email' })
+
+  const user = await User.findOne({ email })
+  // console.log("user", user)
+  if (!user)
+    return res.status(404).json({ message: 'No email could not be send' })
+
+  try {
+    // const emailUrl = `http://localhost:3000/emailverify/${user._id}`;
+    const emailUrl = `http://162.240.225.252/emailverify/${user._id}`;    
+    
+  // console.log("username", user.name, user.email)
+  // Generate verification code (for now hardcoded as '12321')
+    const emailVerifyCode = (Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000).toString();
+    user.emailVerifyCode = emailVerifyCode;
+    user.emailVerifyExpire = Date.now() + 10 * 60 * 1000; // Expires in 10 minutes
+    await user.save();
+    let name = user.name;
+    const message = emailVerifyMessage(emailUrl, name, emailVerifyCode)
+    const result = await sendEmail({
+      to: email,
+      username: name,
+      subject: 'Email Verify Request',
+      text: message,
+    })
+
+    if ( result ){
+      return res.status(200).json({
+        message: `An email has been sent to ${email} with further instructions.`,
+      })
+    }else{
+      return res.status(403).json({
+        message: `An email has not been sent to ${email}.`,
+      })
+    }
+      
+  } catch (error) {
+    res.status(500).json({ error: error.message })
+  }
+
+})
+
 //@description     Get or Search all users
 //@route           GET /api/user?search=
 //@access          Public
@@ -42,10 +91,23 @@ const GetUserById = asyncHandler(async (req, res) => {
 //@access          Public
 const emailVerify = asyncHandler(async (req, res) => {
   try {
-    const { _id, emailVerify  } = req.body
+    const { _id, emailVerify, emailVerifyCode  } = req.body
     console.log(req.body)
 
-    const user = await User.findOne({ _id });
+    const user = await User.findOne({ _id, emailVerifyCode });
+    if (!user) {
+      return res.status(400).json({ message: 'Invalid verification code' });
+    }
+
+    // Optionally, check if the verification code is expired
+    if (user.emailVerifyExpire && user.emailVerifyExpire < Date.now()) {
+      return res.status(400).json({ message: 'Verification code expired' });
+    }
+
+    // Reset verification fields
+    user.emailVerifyCode = null;
+    user.emailVerifyExpire = null;
+    await user.save();
     console.log("user", user)
     user.emailVerify = emailVerify || user.emailVerify;
     const updatedUser = await user.save();
@@ -101,8 +163,14 @@ const registerUser = asyncHandler(async (req, res) => {
   try {
     // const emailUrl = `http://localhost:3000/emailverify/${user._id}`;
     const emailUrl = `http://162.240.225.252/emailverify/${user._id}`;    
-    const message = emailVerifyMessage(emailUrl, name)
+    
   // console.log("username", user.name, user.email)
+  // Generate verification code (for now hardcoded as '12321')
+    const emailVerifyCode = (Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000).toString();
+    user.emailVerifyCode = emailVerifyCode;
+    user.emailVerifyExpire = Date.now() + 10 * 60 * 1000; // Expires in 10 minutes
+    await user.save();
+    const message = emailVerifyMessage(emailUrl, name, emailVerifyCode)
     const result = await sendEmail({
       to: email,
       username: name,
@@ -308,4 +376,5 @@ export {
   postForgotPassword,
   postResetPassword,
   emailVerify,
+  emailReverify,
 };
