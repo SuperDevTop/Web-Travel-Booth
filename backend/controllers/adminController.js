@@ -184,7 +184,7 @@ const updateFaqs = asyncHandler(async (req, res) => {
     faq.status = 1;
     const updateFaq = await faq.save();
     if (updateFaq) {
-      res.status(200).send({ message: results, state: "OK" });
+      res.status(200).send({ message: updateFaq, state: "OK" });
     } else {
       res.status(200).send({ message: "faq is not exist", state: "NO" });
     }
