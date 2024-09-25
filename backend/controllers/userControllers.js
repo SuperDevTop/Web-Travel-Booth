@@ -85,6 +85,20 @@ const GetUserById = asyncHandler(async (req, res) => {
     throw new Error('User not found');
   }
 });
+//@description     Get Admin
+//@route           GET /api/user/admin
+//@access          Public
+const getAdmin = asyncHandler(async (req, res) => {  
+  
+  const admin = await User.find({isAdmin: true});
+  // console.log("Exactly", req.body.id)
+  if (admin) {
+    res.json(admin);
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
+});
 
 //@description     Verify user email
 //@route           POST /api/user/emailverify
@@ -227,6 +241,7 @@ const updateProfile = asyncHandler(async (req, res) => {
       email: updatedUser.email,
       pic: updatedUser.pic,
       isAdmin: updatedUser.isAdmin,
+      token: generateToken(user._id),
     });
   } else {
     res.status(404);
@@ -295,6 +310,7 @@ const updateAdminProfile = asyncHandler(async (req, res) => {
       lastname: updatedUser.lastname,
       email: updatedUser.email,
       isAdmin: updatedUser.isAdmin,
+      token: generateToken(user._id),
     });
   } else {
     res.status(404);
@@ -387,4 +403,5 @@ export {
   postResetPassword,
   emailVerify,
   emailReverify,
+  getAdmin,
 };

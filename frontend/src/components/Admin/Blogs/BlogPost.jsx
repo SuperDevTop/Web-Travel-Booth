@@ -159,8 +159,10 @@ const BlogPost = () => {
                                     data-validation-required-message="Please enter blog contents"></textarea>
                                 <p className="help-block text-danger"></p>
                             </div>
-                            <div>
-                                <button className="btn btn-outline-primary w-100" onClick={(e) => submitHandler(e)}>Submit
+                            <div className='d-flex justify-content-between gap-2'>
+                                <button className="btn btn-outline-primary w-50" onClick={(e) => submitHandler(e)}>Submit
+                                </button>
+                                <button className="btn btn-outline-danger w-50" onClick={(e) => history.push('/admin/blog')}>Back
                                 </button>
                             </div>
                         </form>

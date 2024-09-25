@@ -70,8 +70,8 @@ class Sidebar extends React.Component {
         })}
       >
         { this.state.data === true && (
-          <div id="logo" className="d-flex justify-content-between">
-          <Link to="#" className="logo d-flex align-items-center">
+          <div id="logo" className="d-flex justify-content-between" onClick={this.handleClick}>
+          <Link to="/capture" className="logo d-flex align-items-center">
             <img src={logo} alt="logo" width="70px" height="60px" className='fa fa-beat'/>
             <h1 className="text-uppercase d-none d-sm-none d-md-none d-lg-inline" style={{fontSize:"1.3rem", color:"#012970"}}>travelbooth</h1>
           </Link>

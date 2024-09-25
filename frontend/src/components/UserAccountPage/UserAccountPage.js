@@ -7,6 +7,7 @@ import { Input } from "@chakra-ui/input";
 import { useToast } from "@chakra-ui/toast";
 import "./UserAccountPage.css";
 import Rating from '../Rating';
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const UserAccountPage = () => {
   const [activeTab, setActiveTab] = useState("details");
@@ -14,6 +15,7 @@ const UserAccountPage = () => {
   const [edit, setEdit] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const toast = useToast();
+  const history = useHistory();
 
   const [name, setName] = useState();
   const [firstname, setFirstname] = useState();
@@ -118,9 +120,11 @@ const UserAccountPage = () => {
 
       const {data} = await axios.post("/api/post/explore", {"sender": user._id}, config);
       let arr_tmp = [];
+      // console.log("post1", data.message)
+
       data.message.forEach((post)=>{
         post.reviews.forEach((review)=>{
-          if(review.user._id === user._id && review.liked===true){
+          if(review.user._id === user._id && review.liked===false){
             arr_tmp.push({
               _id : post._id,
               title : post.title,
@@ -135,6 +139,8 @@ const UserAccountPage = () => {
         });
       });
       setPosts1(arr_tmp);
+      console.log(arr_tmp)
+      // console.log(data.message)
     } catch (error) {}
   };
 
@@ -148,6 +154,7 @@ const UserAccountPage = () => {
 
       const {data} = await axios.post("/api/post/index", {"sender": user._id}, config);
       let arr_tmp = [];
+      // console.log("post2", data.message)
       data.message.forEach((post)=>{
         if(post.rating>0){
           arr_tmp.push({
@@ -549,7 +556,8 @@ const UserAccountPage = () => {
           />
           <i
             className="fa fa-question-circle tab-icon"
-            onClick={() => setActiveTab("help")}
+            // onClick={() => setActiveTab("help")}
+            onClick={() => history.push("/faq")}
           />
         </div>
 

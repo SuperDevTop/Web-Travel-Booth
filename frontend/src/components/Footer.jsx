@@ -14,7 +14,7 @@ const Footer = () => {
         smooth
         color="white"
         className="d-flex align-items-center justify-content-center"
-        style={{ backgroundColor: "#0d67b5" }}
+        style={{ backgroundColor: "#0d67b5", zIndex: "100" }}
       />
       <div
         className="container-fluid text-black px-sm-3 px-md-5 p-2 footer" 
@@ -34,25 +34,6 @@ const Footer = () => {
               <i className="fab fa-instagram"></i>
             </Link>
           </div>
-          {/* <div className="d-flex justify-content-center mb-1">
-            <Link className="text-black fw-semibold" to="#">
-              Privacy
-            </Link>
-            <span className="px-3">|</span>
-            <Link className="text-black fw-semibold" to="#">
-              Terms
-            </Link>
-            <span className="px-3">|</span>
-            <Link className="text-black fw-semibold" to="#">
-              FAQs
-            </Link>
-            <span className="px-3">|</span>
-            <Link className="text-black fw-semibold" to="#">
-              Help
-            </Link>
-          </div> */}
-          {/* <p className="m-0">&copy; <a className="text-white font-weight-bold" href="#">Web TravelBooth</a>. All Rights Reserved. Designed by <a className="text-white font-weight-bold" href="https://htmlcodex.com">...</a>
-            </p> */}
         </div>
       </div>
     </>

@@ -1,25 +1,24 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useToast } from "@chakra-ui/toast";
-import { useHistory } from "react-router-dom";
-import { useParams } from "react-router-dom";
-import Loader from "../../Loader";
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import { useToast } from '@chakra-ui/react';
+import Loader from '../../Loader';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
-const BlogEdit = () => {
-  const { id: blogId } = useParams();
+const PostEdit = () => {
+
+  const { id:postId } = useParams();
+  console.log(postId)
+  const [post, setPost] = useState([]);
+  const [title, setTitle] = useState("");
+  const [detail, setDetail] = useState("");
+  const [location, setLocation] = useState("");
+  const [image, setImage] = useState("");
 
   const toast = useToast();
-
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [image, setImage] = useState("");
-  const [blog, setBlog] = useState([]);
-  // const [originalImage, setOriginalImage] = useState("");
-
   const history = useHistory();
 
   const user = JSON.parse(localStorage.getItem("userInfo"));
-
   useEffect(() => {
     if (user) {
       if (user.isAdmin === true) {
@@ -30,8 +29,7 @@ const BlogEdit = () => {
         document.getElementById("AdminSidebar").style.display = "none";
       }
     }
-
-    const fetchBlog = async () => {
+    const fetchPost = async () => {
       try {
         const config = {
           headers: {
@@ -39,12 +37,11 @@ const BlogEdit = () => {
           },
         };
 
-        const resBlog = await axios.get(`/api/blog/${blogId}`, config);
-        setBlog(resBlog.data);
-
-        setTitle(blog.title);
-        setContent(blog.content);
-        // console.log(resBlogs.data)
+        const {data} = await axios.post("/api/post/edit",{id:postId}, config);
+        setPost(data.message[0]);
+        setTitle(post.title);
+        setDetail(post.details);
+        setLocation(post.location);
       } catch (err) {
         toast({
           title: "Error Occured!",
@@ -56,10 +53,8 @@ const BlogEdit = () => {
         });
       }
     };
-    fetchBlog();
-  }, [blog.title, blog.content]);
-  console.log("originalImatlge", blog.title);
-
+    fetchPost();
+  }, [post.title, post.details, post.location]);
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
     formData.append("image", e.target.files[0]);
@@ -100,15 +95,15 @@ const BlogEdit = () => {
         },
       };
       const { data } = await axios.put(
-        `/api/blog/${blog._id}`,
+        `/api/post/${post._id}`,
         {
-          title: title,
-          content: content,
-          image: image,
+          title,
+          detail,
+          image,
         },
         config
       );
-      console.log(data);
+      console.log(data)
       toast({
         title: "Success!",
         description: "Updated Successfully!",
@@ -117,7 +112,7 @@ const BlogEdit = () => {
         isClosable: true,
         position: "top-right",
       });
-      history.push("/admin/blog");
+      history.push("/admin/posts");
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -141,13 +136,13 @@ const BlogEdit = () => {
             className="display-1 text-uppercase text-white"
             style={{ WebkitTextStroke: "1px #dee2e6", fontSize: "7rem" }}
           >
-            Blogs
+            Posts
           </h1>
           <h1
             className="position-absolute text-uppercase text-primary"
             style={{ fontSize: "2.5rem" }}
           >
-            Edit Blog
+            Edit Post
           </h1>
         </div>
         <div className="row justify-content-center">
@@ -196,8 +191,8 @@ const BlogEdit = () => {
                       rows="7"
                       placeholder="Content"
                       required="required"
-                      value={content}
-                      onChange={(e) => setContent(e.target.value)}
+                      value={detail}
+                      onChange={(e) => setDetail(e.target.value)}
                       data-validation-required-message="Please enter blog contents"
                     ></textarea>
                     <p className="help-block text-danger"></p>
@@ -209,7 +204,7 @@ const BlogEdit = () => {
                     >
                       Update
                     </button>
-                    <button className="btn btn-outline-danger w-50" onClick={(e) => history.push('/admin/blog')}>Back</button>
+                    <button className="btn btn-outline-danger w-50" onClick={(e) => history.push('/admin/posts')}>Back</button>
                   </div>
                 </form>
               )}
@@ -218,7 +213,7 @@ const BlogEdit = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BlogEdit;
+export default PostEdit

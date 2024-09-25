@@ -146,7 +146,7 @@ const EditPostPage = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const reqData = {"id":postId, "sender": user._id, "title": title, "details": details, "location": location, "isPublic": isPublic, "image": image, "rating": rating};
+      const reqData = {"id":postId, "sender": user._id, "title": title, "details": details, "location": location, "isPublic": isPublic, "image": image};
       const { data } = await axios.post("/api/post/update", reqData, config);
       if(data.state==="OK")
         toast({title: "Success!", description: "Post updated successfully.", status: "success", position: "top-right", duration: 5000, isClosable: true,});
@@ -169,6 +169,10 @@ const EditPostPage = () => {
   return (
     <div className="capturePage-container w-100">
       <div className="content-container" style={{paddingTop:"75px"}}>
+      <div className="position-relative d-flex align-items-center justify-content-center pb-3">
+          <h1 className="display-1 text-uppercase text-white" style={{WebkitTextStroke: "1px #dee2e6", fontSize:"7rem"}}>Posts</h1>
+          <h1 className="position-absolute text-uppercase text-primary" style={{fontSize:"3.5rem"}}>Edit Post</h1>
+      </div>
         <div className="post-container">
           <Form>
             <Form.Group controlId='title' className='my-2'>
@@ -198,7 +202,7 @@ const EditPostPage = () => {
             <Form.Group controlId='rating' className='my-2'>
                 <Form.Label>Rating</Form.Label>
                 <Rating value={rating}/>
-                <Form.Control className="mt-2" type='text' placeholder='Enter rating here' value={rating} onChange={(e)=>setRating(e.target.value)}></Form.Control>
+                {/* <Form.Control className="mt-2" type='text' placeholder='Enter rating here' value={rating} onChange={(e)=>setRating(e.target.value)}></Form.Control> */}
             </Form.Group>
             <Form.Label>Privacy</Form.Label>
             <Form.Group controlId='privacy' className='post-privacy'>

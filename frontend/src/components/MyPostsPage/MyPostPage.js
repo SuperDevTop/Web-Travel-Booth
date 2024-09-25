@@ -81,6 +81,10 @@ const MyPostPage = () => {
   return (
     <div className="capturePage-container w-100">
       <div className="content-container" style={{paddingTop:"75px"}}>
+      <div className="position-relative d-flex align-items-center justify-content-center pb-3">
+          <h1 className="display-1 text-uppercase text-white" style={{WebkitTextStroke: "1px #dee2e6", fontSize:"7rem"}}>Posts</h1>
+          <h1 className="position-absolute text-uppercase text-primary" style={{fontSize:"3.5rem"}}>View Post</h1>
+      </div>
         <div className="post">
           {isMine?(
             <div className="post-title">

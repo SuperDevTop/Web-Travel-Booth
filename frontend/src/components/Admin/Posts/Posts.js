@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useToast } from "@chakra-ui/toast";
 import "./Posts.css";
 
@@ -36,13 +37,13 @@ const PostsPage = () => {
         );
         setPosts(data.message);
         setPostCnt(data.message.length);
-      } catch (error) {}
+      } catch (error) { }
     };
 
     fetchPosts();
   }, [status]);
 
-  const deletePostHandler = async(id) => {
+  const deletePostHandler = async (id) => {
     const config = {
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -62,7 +63,7 @@ const PostsPage = () => {
   }
   return (
     <div className="dashboard-container w-100">
-      <div className="dashboard-content-container" style={{paddingTop:"100px"}}>
+      <div className="dashboard-content-container" style={{ paddingTop: "100px" }}>
         <div className="pagetitle mb-3">
           <h1>Posts</h1>
         </div>
@@ -71,11 +72,20 @@ const PostsPage = () => {
           <div className="row">
             {/* <!-- Posts Today --> */}
             <div className="col-12">
-              <div className="card top-selling overflow-auto">
+              <div className="card top-selling">
                 <div className="posts-card-body pb-0">
-                  <h5 className="card-title p-3">
-                    Posts <span>| {postCnt}</span>
-                  </h5>
+                  <div className="row my-3">
+                    <div className="d-flex justify-content-between px-5">
+                      <h5 className="card-title p-3">
+                        Posts <span>| {postCnt}</span>
+                      </h5>
+                      <div className="d-flex align-items-center">
+                        <Link to="/admin/addpost" className="btn btn-primary rounded text-white fw-semibold">
+                          <i className="fa fa-plus" /> Add Post
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
 
                   <table className="table table-borderless">
                     <thead>
@@ -99,14 +109,28 @@ const PostsPage = () => {
                             </span>
                           </td>
                           <td>{post.location}</td>
-                          <td className="fw-bold">{post.sender?.name }</td>
+                          <td className="fw-bold">{post.sender?.name}</td>
                           <td>
-                            <button
-                              className="btn btn-sm btn-danger"
-                              onClick={(e) => deletePostHandler(post._id)}
-                            >
-                              <i className="bi bi-trash"></i>
-                            </button>
+                            <div className="d-flex justify-content-center gap-3">
+                              <Link
+                                className="btn btn-sm btn-primary text-white"
+                                to={`/admin/post/${post._id}/view`}
+                              >
+                                <i className="bi bi-eye-fill"></i>
+                              </Link>
+                              <Link
+                                className="btn btn-sm btn-info text-white"
+                                to={`/admin/post/${post._id}/edit`}
+                              >
+                                <i className="bi bi-pencil"></i>
+                              </Link>
+                              <button
+                                className="btn btn-sm btn-danger"
+                                onClick={(e) => deletePostHandler(post._id)}
+                              >
+                                <i className="bi bi-trash"></i>
+                              </button>
+                            </div>
                           </td>
                         </tr>
                       ))}

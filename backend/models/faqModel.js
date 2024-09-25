@@ -2,9 +2,12 @@ import mongoose from 'mongoose'
 
 const faqModel = mongoose.Schema(
   {
-    no: { type: Number },
     question:  { type: String },
     answer:  { type: String },
+    status: {
+      type: Number,
+      default: 0,
+    }
   },
   { timestamps: true }
 );

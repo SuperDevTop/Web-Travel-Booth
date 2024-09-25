@@ -148,7 +148,7 @@ const NotificationsPage = () => {
           {notificationsCount>0?(
             <>
           <div className="notification-action">
-            <Table striped hover responsive className="table-md">
+            <Table striped hover responsive className="table-md table-responsive-sm table-sm table-">
               <thead>
                   <tr>
                       <th>Notification</th>

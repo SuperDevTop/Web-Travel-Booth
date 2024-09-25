@@ -12,10 +12,10 @@ const fetchTopPosts = asyncHandler(async (req, res) => {
   try {
     const results = await Post.find({}).populate("sender").populate("reviews.user").sort("-reviews").limit(5);
     //    const results = await Post.find({createdAt: '2024-06-20T09:37:34.547+00:00'}).populate("sender").populate("reviews.user");
-    if(results)
-      res.status(200).send({message: results, state: "OK"});
+    if (results)
+      res.status(200).send({ message: results, state: "OK" });
     else
-      res.status(200).send({message: "", state: "NO"});
+      res.status(200).send({ message: "", state: "NO" });
   } catch (error) {
     res.status(400);
     throw new Error(error.message);
@@ -27,28 +27,28 @@ const fetchTopPosts = asyncHandler(async (req, res) => {
 //@access          Protected
 const fetchPosts = asyncHandler(async (req, res) => {
   try {
-    const {today} = req.body;
+    const { today } = req.body;
 
-    if(today!=="ALL"){
+    if (today !== "ALL") {
       const startDate = new Date(today);
       startDate.setHours(0, 0, 0, 0);
       const endDate = new Date(today);
       endDate.setDate(endDate.getDate() + 1);
       endDate.setHours(0, 0, 0, 0);
 
-      const datePredicate = {'createdAt': {"$gte": startDate, "$lt": endDate}};
+      const datePredicate = { 'createdAt': { "$gte": startDate, "$lt": endDate } };
       const results = await Post.find(datePredicate).populate("sender").populate("reviews.user");
-      if(results)
-        res.status(200).send({message: results, state: "OK"});
+      if (results)
+        res.status(200).send({ message: results, state: "OK" });
       else
-        res.status(200).send({message: "", state: "NO"});
+        res.status(200).send({ message: "", state: "NO" });
     }
-    else{
+    else {
       const results = await Post.find({}).populate("sender").populate("reviews.user");
-      if(results)
-        res.status(200).send({message: results, state: "OK"});
+      if (results)
+        res.status(200).send({ message: results, state: "OK" });
       else
-        res.status(200).send({message: "", state: "NO"});
+        res.status(200).send({ message: "", state: "NO" });
     }
   } catch (error) {
     res.status(400);
@@ -72,13 +72,13 @@ const deletePost = asyncHandler(async (req, res) => {
   //   // Image not found
   //   res.status(404).send('Image not found');
   // }
-    if (post) {
-      await Post.deleteOne({ _id: post._id });
-      res.json({ message: 'Post removed' });
-    } else {
-      res.status(404);
-      throw new Error('Post not found');
-    }
+  if (post) {
+    await Post.deleteOne({ _id: post._id });
+    res.json({ message: 'Post removed' });
+  } else {
+    res.status(404);
+    throw new Error('Post not found');
+  }
 });
 
 //@description     Fetch today chats
@@ -86,20 +86,20 @@ const deletePost = asyncHandler(async (req, res) => {
 //@access          Protected
 const fetchChats = asyncHandler(async (req, res) => {
   try {
-    const {today} = req.body;
+    const { today } = req.body;
 
     const startDate = new Date(today);
     startDate.setHours(0, 0, 0, 0);
     const endDate = new Date(today);
     endDate.setDate(endDate.getDate() + 1);
     endDate.setHours(0, 0, 0, 0);
-    const datePredicate = {'createdAt': {"$gte": startDate, "$lt": endDate}};
+    const datePredicate = { 'createdAt': { "$gte": startDate, "$lt": endDate } };
 
     const results = await Chat.find(datePredicate).populate("users");
-    if(results)
-      res.status(200).send({message: results, state: "OK"});
+    if (results)
+      res.status(200).send({ message: results, state: "OK" });
     else
-      res.status(200).send({message: "", state: "NO"});
+      res.status(200).send({ message: "", state: "NO" });
   } catch (error) {
     res.status(400);
     throw new Error(error.message);
@@ -111,9 +111,9 @@ const fetchChats = asyncHandler(async (req, res) => {
 //@access          Protected
 const fetchUsers = asyncHandler(async (req, res) => {
   try {
-    const {today} = req.body;
+    const { today } = req.body;
 
-    if(today!=="ALL"){
+    if (today !== "ALL") {
       const startDate = new Date(today);
       startDate.setMonth(1);
       startDate.setDate(1);
@@ -122,19 +122,19 @@ const fetchUsers = asyncHandler(async (req, res) => {
       endDate.setMonth(12);
       endDate.setDate(31);
       endDate.setHours(23, 59, 59, 0);
-      const datePredicate = {'createdAt': {"$gte": startDate, "$lt": endDate}};
+      const datePredicate = { 'createdAt': { "$gte": startDate, "$lt": endDate } };
       const results = await User.find(datePredicate);
-      if(results)
-        res.status(200).send({message: results, state: "OK"});
+      if (results)
+        res.status(200).send({ message: results, state: "OK" });
       else
-        res.status(200).send({message: "", state: "NO"});
+        res.status(200).send({ message: "", state: "NO" });
     }
-    else{
+    else {
       const results = await User.find({});
-      if(results)
-        res.status(200).send({message: results, state: "OK"});
+      if (results)
+        res.status(200).send({ message: results, state: "OK" });
       else
-        res.status(200).send({message: "", state: "NO"});
+        res.status(200).send({ message: "", state: "NO" });
     }
   } catch (error) {
     res.status(400);
@@ -147,14 +147,14 @@ const fetchUsers = asyncHandler(async (req, res) => {
 //@access          Protected
 const deleteUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
-  
-    if (user) {
-      await User.deleteOne({ _id: user._id });
-      res.json({ message: 'User removed' });
-    } else {
-      res.status(404);
-      throw new Error('User not found');
-    }
+
+  if (user) {
+    await User.deleteOne({ _id: user._id });
+    res.json({ message: 'User removed' });
+  } else {
+    res.status(404);
+    throw new Error('User not found');
+  }
 });
 
 //@description     Fetch Faqs
@@ -162,11 +162,11 @@ const deleteUser = asyncHandler(async (req, res) => {
 //@access          Protected
 const fetchFaqs = asyncHandler(async (req, res) => {
   try {
-      const results = await Faq.find({});
-      if(results)
-        res.status(200).send({message: results, state: "OK"});
-      else
-        res.status(200).send({message: "", state: "NO"});
+    const results = await Faq.find({});
+    if (results)
+      res.status(200).send({ message: results, state: "OK" });
+    else
+      res.status(200).send({ message: "", state: "NO" });
   } catch (error) {
     res.status(400);
     throw new Error(error.message);
@@ -177,34 +177,49 @@ const fetchFaqs = asyncHandler(async (req, res) => {
 //@route           POST /api/admin/update_faqs
 //@access          Protected
 const updateFaqs = asyncHandler(async (req, res) => {
+  const { answer, id } = req.body;
   try {
-    const {question1, answer1, question2, answer2, question3, answer3} = req.body;
-    const faqs = [
-      {
-        "no": 1,
-        "question": question1,
-        "answer": answer1,
-      },
-      {
-        "no": 2,
-        "question": question2,
-        "answer": answer2,
-      },
-      {
-        "no": 3,
-        "question": question3,
-        "answer": answer3,
-      },
-    ];
-
-    await Faq.deleteMany();
-    await Faq.insertMany(faqs);
-
-    const results = await Faq.find({});
-    if(results)
-      res.status(200).send({message: results, state: "OK"});
+    const faq = await Faq.findById({ _id: id });
+    faq.answer = answer;
+    faq.status = 1;
+    const updateFaq = await faq.save();
+    if (updateFaq) {
+      res.status(200).send({ message: results, state: "OK" });
+    } else {
+      res.status(200).send({ message: "faq is not exist", state: "NO" });
+    }
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+//@description     submit Faqs
+//@route           POST /api/admin/submitfaq
+//@access          Protected
+const submitFaq = asyncHandler(async (req, res) => {
+  try {
+    const { question, answer } = req.body;
+    const results = await Faq.create({ question, answer, status: 1 });
+    if (results)
+      res.status(200).send({ message: results, state: "OK" });
     else
-      res.status(200).send({message: "", state: "NO"});
+      res.status(200).send({ message: "", state: "NO" });
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+//@description     submit question
+//@route           POST /api/admin/submitquestion
+//@access          Protected
+const submitQuestion = asyncHandler(async (req, res) => {
+  try {
+    const { question } = req.body;
+    const results = await Faq.create({ question });
+    if (results)
+      res.status(200).send({ message: results, state: "OK" });
+    else
+      res.status(200).send({ message: "", state: "NO" });
   } catch (error) {
     res.status(400);
     throw new Error(error.message);
@@ -219,5 +234,7 @@ export {
   fetchFaqs,
   updateFaqs,
   deletePost,
-  deleteUser
+  deleteUser,
+  submitFaq,
+  submitQuestion,
 };

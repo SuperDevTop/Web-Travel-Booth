@@ -24,7 +24,9 @@ const submitPost = asyncHandler(async (req, res) => {
 const fetchPosts = asyncHandler(async (req, res) => {
   try {
     const {sender} = req.body;
+    // console.log(sender)
     const results = await Post.find({sender: sender}).populate("sender").populate("reviews.user");
+    // console.log("result", results)
     if(results)
       res.status(200).send({message: results, state: "OK"});
     else
@@ -74,16 +76,16 @@ const getPost = asyncHandler(async (req, res) => {
 // @route   POST /api/post/update
 // @access  Protected
 const updatePost = asyncHandler(async (req, res) => {
-  const {sender, title, details, location, isPublic, image, id, rating} = req.body;
-
+  const {sender, title, details, location, isPublic, image, id} = req.body;
+//  console.log(req.body)
   const results = await Post.findByIdAndUpdate(id);
-    
+    // console.log(results)
   results.title = title;
   results.details = details;
   results.location = location;
   results.image = image;
   results.isPublic = isPublic;
-  results.rating = rating;
+  // results.rating = rating;
 
   await results.save();
 
@@ -172,7 +174,7 @@ const changeLikedPost = asyncHandler(async (req, res) => {
 //@route           POST /api/post/comment_post
 //@access          Protected
 const changeCommentPost = asyncHandler(async (req, res) => {
-  const {userId, postId, comment, liked} = req.body;
+  const {userId, postId, comment, liked, rating} = req.body;
   const post = await Post.findById(postId);
   if (post) {
     const alreadyReviewed = await Post.findOne({"_id": postId, 'reviews.user': userId});
@@ -187,9 +189,15 @@ const changeCommentPost = asyncHandler(async (req, res) => {
         user: userId,
         comment: comment,
         liked: liked,
+        rating: rating,
       };
 
       post.reviews.push(review);
+      post.numReviews = post.reviews.length;
+  
+      post.rating =
+      post.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      post.reviews.length;
       await post.save();
     }
   }
@@ -233,6 +241,31 @@ const fetchNotifiedPosts = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
+// @desc            Update a Post
+// @route           PUT /api/post/:id
+// access           Admin
+
+const updatePostById = asyncHandler(async(req, res) => {
+  const post = await Post.findById(req.params.id);
+  // console.log(req.body)
+  if(post){
+    post.title = req.body.title || post.title;
+    post.details = req.body.detail || post.details;
+    post.image = req.body.image || post.image;
+
+      const updatePost = await post.save();
+
+      if (updatePost){
+          res.json({state:"ok"})
+      }else{
+          res.status(404);
+          throw new Error('Post not found');
+      }
+
+  }else{
+      res.status(404);
+      throw new Error('Post not found');}
+})
 
 export {
   fetchLocations,
@@ -247,4 +280,5 @@ export {
   changeCommentPost,
   notifyPost,
   notifyPost2,
+  updatePostById,
 };

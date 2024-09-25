@@ -8,6 +8,9 @@ const reviewSchema = new mongoose.Schema({
   comment: {
       type: String,
   },
+  rating: {
+        type: Number,
+    },
   liked: {
     type: Boolean, default: false,
   },
@@ -25,9 +28,14 @@ const postModel = mongoose.Schema(
     details:  { type: String },
     location:  { type: String },
     isPublic: { type: Boolean, default: false },
-    rating:  { type: Number },
+    rating:  { type: Number, required: true, default: 0,},
     image:  { type: String },
     reviews: [reviewSchema],
+    numReviews: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     noticed: [ {type: mongoose.Schema.Types.ObjectId, ref: "User"} ],
   },
   { timestamps: true }

@@ -58,6 +58,7 @@ const Login = () => {
         position: "bottom",
       });
       setUser(data);
+      console.log("data", JSON.stringify(data))
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
       if (data.isAdmin === true) history.push("/admin/dashboard");

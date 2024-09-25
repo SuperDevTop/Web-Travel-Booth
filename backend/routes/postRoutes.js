@@ -13,6 +13,7 @@ import {
   notifyPost,
   notifyPost2,
   fetchNotifiedPosts,
+  updatePostById,
 } from "../controllers/postController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -30,5 +31,6 @@ router.route('/comment_post').post(protect, changeCommentPost);
 router.route("/notified_posts").post(protect, fetchNotifiedPosts);
 router.route('/notify').post(protect, notifyPost);
 router.route('/notify2').post(protect, notifyPost2);
+router.route('/:id').put(protect, updatePostById);
 
 export default router;

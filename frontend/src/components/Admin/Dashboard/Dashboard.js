@@ -39,8 +39,9 @@ const DashboardPage = () => {
           config
         );
         setPosts(data.message);
+        console.log("opost", data.message)
         setPostCnt(data.message.length);
-      } catch (error) {}
+      } catch (error) { }
     };
 
     const fetchChats = async () => {
@@ -61,7 +62,7 @@ const DashboardPage = () => {
           config
         );
         setChatCnt(data.message.length);
-      } catch (error) {}
+      } catch (error) { }
     };
 
     const fetchUsers = async () => {
@@ -82,7 +83,7 @@ const DashboardPage = () => {
           config
         );
         setUserCnt(data.message.length);
-      } catch (error) {}
+      } catch (error) { }
     };
 
     const fetchBlogs = async () => {
@@ -99,7 +100,7 @@ const DashboardPage = () => {
           config
         );
         setBlogCnt(data.length);
-      } catch (error) {}
+      } catch (error) { }
     };
 
     const fetchTopPosts = async () => {
@@ -116,7 +117,7 @@ const DashboardPage = () => {
 
         const { data } = await axios.get("/api/admin/top_posts", config);
         setTopPosts(data.message);
-      } catch (error) {}
+      } catch (error) { }
     };
 
     fetchPosts();
@@ -128,7 +129,7 @@ const DashboardPage = () => {
 
   return (
     <div className="dashboard-container w-100">
-      <div className="dashboard-content-container" style={{paddingTop:"100px"}}>
+      <div className="dashboard-content-container" style={{ paddingTop: "100px" }}>
         <div className="pagetitle mb-3">
           <h1>Admin Dashboard</h1>
         </div>
@@ -241,7 +242,9 @@ const DashboardPage = () => {
                           {posts.map((post, i) => (
                             <tr key={i}>
                               <th scope="row">
-                                <img src={post.image} alt="" />
+                                <div className="d-flex justify-content-center">
+                                  <img src={post.image} alt="" />
+                                </div>
                               </th>
                               <td>
                                 <span className="text-primary fw-bold">

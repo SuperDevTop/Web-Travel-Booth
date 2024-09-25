@@ -120,7 +120,7 @@ const EditExplorePage = () => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const {data} = await axios.post("/api/post/comment_post", {"userId": user._id, "postId": postId, "comment": comment, "liked": liked}, config);
+      const {data} = await axios.post("/api/post/comment_post", {"userId": user._id, "postId": postId, "comment": comment, "liked": liked, "rating":rating}, config);
       if(data.state==="OK")
         toast({title: "Success!", description: "Post commented successfully.", status: "success", position: "top-right", duration: 5000, isClosable: true,});
     } catch (error) {
@@ -156,7 +156,22 @@ const EditExplorePage = () => {
               </Row>
               <Row className="my-2">
                 <Col md={3}><span><strong>Rating :</strong></span></Col>
-                <Col md={9}><Rating value={rating}/></Col>
+                <Col md={3}>
+                <Rating value={rating}/>                
+                </Col>
+                <Col md={6}>
+                <Form.Control
+                  as='select'
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}>
+                  <option value=''>Select...</option>
+                  <option value='1'>1 - Poor</option>
+                  <option value='2'>2 - Fair</option>
+                  <option value='3'>3 - Good</option>
+                  <option value='4'>4 - Very Good</option>
+                  <option value='5'>5 - Excellent</option>
+                </Form.Control>
+                </Col>
               </Row>
               <Row className="my-2">
                 <Col md={3}><span><strong>Privacy :</strong></span></Col>

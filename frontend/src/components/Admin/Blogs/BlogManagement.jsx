@@ -7,7 +7,7 @@ const BlogManagement = () => {
   const [blogCnt, setBlogCnt] = useState(0);
   const [blogs, setBlogs] = useState([]);
   const [status, setStatus] = useState(false);
-  
+
   const toast = useToast();
 
   const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -34,33 +34,33 @@ const BlogManagement = () => {
         const { data } = await axios.get("/api/blog", config);
         setBlogCnt(data.length);
         setBlogs(data);
-      } catch (error) {}
+      } catch (error) { }
     };
     fetchBlogs();
   }, [user, status]);
 
-  const deleteBlogHandler = async(id) => {
+  const deleteBlogHandler = async (id) => {
     const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-      await axios.delete(`/api/blog/${id}`, config).then(response => {
-        toast({
-          title: "Success!",
-          description: "Deleted Successfully!",
-          status: "success",
-          position: "top-right",
-          duration: 5000,
-          isClosable: true,
-        });
-        setStatus(!status);
-      })
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+    await axios.delete(`/api/blog/${id}`, config).then(response => {
+      toast({
+        title: "Success!",
+        description: "Deleted Successfully!",
+        status: "success",
+        position: "top-right",
+        duration: 5000,
+        isClosable: true,
+      });
+      setStatus(!status);
+    })
   };
 
-//   const editBlogHandler = () => {
-//     console.log("Clicked");
-//   };
+  //   const editBlogHandler = () => {
+  //     console.log("Clicked");
+  //   };
   return (
     <div className="dashboard-container w-100">
       <div
@@ -115,8 +115,14 @@ const BlogManagement = () => {
                           <td>
                             <div className="d-flex justify-content-center gap-3">
                               <Link
+                                className="btn btn-sm btn-primary text-white"
+                                to={`/admin/blogs/${blog._id}/view`}
+                              >
+                                <i className="bi bi-eye-fill"></i>
+                              </Link>
+                              <Link
                                 className="btn btn-sm btn-info text-white"
-                                to={`/admin/blogs/${blog._id}`}
+                                to={`/admin/blogs/${blog._id}/edit`}
                               >
                                 <i className="bi bi-pencil"></i>
                               </Link>
