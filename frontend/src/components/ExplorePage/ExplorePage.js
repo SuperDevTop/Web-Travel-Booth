@@ -103,7 +103,7 @@ const ExplorePage = () => {
     };
     fetchPosts();
   }, []);
-
+console.log("posts", posts)
   return (
     <div className="explorePage-container w-100">
       <div className="content-container" style={{paddingTop:"75px"}}>

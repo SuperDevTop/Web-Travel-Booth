@@ -11,6 +11,7 @@ import {
   deleteUser,
   submitFaq,
   submitQuestion,
+  deleteFaq,
 } from "../controllers/adminController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -26,5 +27,6 @@ router.route("/faqs").get(protect, fetchFaqs);
 router.route("/update_faqs").post(protect, updateFaqs);
 router.route("/submitfaq").post(protect, submitFaq);
 router.route("/submitquestion").post(protect, submitQuestion);
+router.route("/deletefaq").delete(protect, deleteFaq);
 
 export default router;

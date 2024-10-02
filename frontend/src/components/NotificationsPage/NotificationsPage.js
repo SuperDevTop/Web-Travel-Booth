@@ -4,6 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { FaTimes } from "react-icons/fa";
 import axios from "axios";
 import { useToast } from "@chakra-ui/toast";
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 
 const NotificationsPage = () => {
@@ -12,6 +13,7 @@ const NotificationsPage = () => {
   const [notificationsCount, setCount] = useState(0);
 
   const toast = useToast();
+  const history = useHistory();
 
   const user = JSON.parse(localStorage.getItem("userInfo"));
   const fetchPosts = async () => {
@@ -147,8 +149,8 @@ const NotificationsPage = () => {
         </div>
           {notificationsCount>0?(
             <>
-          <div className="notification-action">
-            <Table striped hover responsive className="table-md table-responsive-sm table-sm table-">
+          <div className="notification-action table-responsive">
+            <Table striped hover responsive className="table-md table-sm align-middle">
               <thead>
                   <tr>
                       <th>Notification</th>
@@ -161,7 +163,7 @@ const NotificationsPage = () => {
               </thead>
               <tbody>
                 {posts2.map((post, i)=>(
-                  <tr key={i}>
+                  <tr key={i} onClick={(e) => {history.push("/posts")}}>
                     <td className='text-warning'>New</td>
                     <td>{post.sender?.name}</td>
                     <td>{post.title}</td>
@@ -175,9 +177,9 @@ const NotificationsPage = () => {
                   </tr>
                 ))}
                 {posts.map((post, i)=>(
-                  <tr key={i}>
+                  <tr key={i} onClick={(e) => {history.push("/explore")}}>
                     <td className='text-info'>Comment</td>
-                    <td>{post.sender.name}</td>
+                    <td className='align-self-center'>{post.sender.name}</td>
                     <td>{post.title}</td>
                     <td>{post.comment}</td>
                     {post.liked?(<td>Like</td>):(<td></td>)}

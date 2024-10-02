@@ -182,7 +182,10 @@ const changeCommentPost = asyncHandler(async (req, res) => {
       alreadyReviewed.reviews[0].comment=comment;
       alreadyReviewed.reviews[0].liked=liked;
       alreadyReviewed.reviews[0].noticed=false;
+      alreadyReviewed.reviews[0].rating=rating;
       await alreadyReviewed.save();
+      post.rating = rating;
+      await post.save();
     }
     else{
       const review = {
@@ -191,7 +194,6 @@ const changeCommentPost = asyncHandler(async (req, res) => {
         liked: liked,
         rating: rating,
       };
-
       post.reviews.push(review);
       post.numReviews = post.reviews.length;
   

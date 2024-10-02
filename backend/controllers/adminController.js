@@ -225,6 +225,25 @@ const submitQuestion = asyncHandler(async (req, res) => {
     throw new Error(error.message);
   }
 });
+//@description     Delete FAQ
+//@route           DELETE /api/admin/deletefaq
+//@access          Protected
+const deleteFaq = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.body;
+    const faq = await Faq.findById({_id: id});
+    if (faq) {
+      await Faq.deleteOne({ _id: id });
+      res.json({ message: 'Faq removed' });
+    } else {
+      res.status(404);
+      throw new Error('Faq not found');
+    }
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
 
 export {
   fetchTopPosts,
@@ -237,4 +256,5 @@ export {
   deleteUser,
   submitFaq,
   submitQuestion,
+  deleteFaq,
 };

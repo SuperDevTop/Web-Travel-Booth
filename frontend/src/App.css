@@ -317,7 +317,6 @@ li a.dropdown-toggle::after {
   align-items: center;
   display: flex;
   margin-bottom: 20px; 
-  overflow: scroll;
 }
 
 .page-container {

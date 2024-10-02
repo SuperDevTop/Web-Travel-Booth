@@ -3,12 +3,13 @@ import axios from "axios";
 import './ExplorePage.css';
 import { useParams } from 'react-router-dom'
 import { useToast } from "@chakra-ui/toast";
-import {Form, Button, Image, Row, Col } from 'react-bootstrap';
+import { Form, Button, Image, Row, Col } from 'react-bootstrap';
 // import Comment from "../Comment";
 import Rating from '../Rating';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 const EditExplorePage = () => {
-  const { id: postId} = useParams();
+  const { id: postId } = useParams();
   const toast = useToast();
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
@@ -17,7 +18,8 @@ const EditExplorePage = () => {
   const [rating, setRating] = useState();
   const [comment, setComment] = useState("");
   const [liked, setLiked] = useState(false);
-//  const [locationFile, setLocationFile] = useState([]);
+  const history = useHistory();
+  //  const [locationFile, setLocationFile] = useState([]);
   const [isPublic, setPublic] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("userInfo"));
@@ -32,12 +34,12 @@ const EditExplorePage = () => {
         },
       };
 
-      const res = (await axios.post("/api/post/edit", {"id": postId}, config)).data.message;
-      res.forEach((post)=>{
+      const res = (await axios.post("/api/post/edit", { "id": postId }, config)).data.message;
+      res.forEach((post) => {
         post.liked = false;
         post.comment = "";
-        post.reviews.forEach((review)=>{
-          if(review.user._id===user._id){
+        post.reviews.forEach((review) => {
+          if (review.user._id === user._id) {
             post.liked = review.liked;
             post.comment = review.comment;
           }
@@ -70,16 +72,16 @@ const EditExplorePage = () => {
   useEffect(() => {
     const isDarkMode = localStorage.getItem("isDarkMode");
     const user = JSON.parse(localStorage.getItem("userInfo"));
-      if(user){
-        if(user.isAdmin=== true){
-          document.getElementById('mySidebar').style.display="none";
-          document.getElementById('AdminSidebar').style.display="block";  
-        }
-        else{
-          document.getElementById('mySidebar').style.display="block";
-          document.getElementById('AdminSidebar').style.display="none";  
-        }
+    if (user) {
+      if (user.isAdmin === true) {
+        document.getElementById('mySidebar').style.display = "none";
+        document.getElementById('AdminSidebar').style.display = "block";
       }
+      else {
+        document.getElementById('mySidebar').style.display = "block";
+        document.getElementById('AdminSidebar').style.display = "none";
+      }
+    }
     if (isDarkMode === "true") {
       document.documentElement.dataset.bsTheme = "dark";
     }
@@ -112,17 +114,25 @@ const EditExplorePage = () => {
   // }
 
   const submitHandler = async () => {
-    if(!comment)
-      toast({title: "Error Occured!", description: "Input Comment", status: "error", position: "top-right", duration: 5000, isClosable: true,});
+    if (!comment)
+      toast({ title: "Error Occured!", description: "Input Comment", status: "error", position: "top-right", duration: 5000, isClosable: true, });
     try {
       const config = {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const {data} = await axios.post("/api/post/comment_post", {"userId": user._id, "postId": postId, "comment": comment, "liked": liked, "rating":rating}, config);
-      if(data.state==="OK")
-        toast({title: "Success!", description: "Post commented successfully.", status: "success", position: "top-right", duration: 5000, isClosable: true,});
+      const { data } = await axios.post("/api/post/comment_post", { "userId": user._id, "postId": postId, "comment": comment, "liked": liked, "rating": rating }, config);
+      if (data.state === "OK")
+        toast({
+          title: "Success!",
+          description: "Post commented successfully.",
+          status: "success",
+          position: "top-right",
+          duration: 5000,
+          isClosable: true,
+        });
+        history.push("/explore")
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -137,47 +147,47 @@ const EditExplorePage = () => {
 
   return (
     <div className="capturePage-container w-100">
-      <div className="content-container" style={{paddingTop:"75px"}}>
+      <div className="content-container" style={{ paddingTop: "75px" }}>
         <div className="w-75 border rounded shadow-sm">
-        <Row >
-          <Col md={12}>
-            <span className="explore-post-title">- {title} -</span>
-            <div className="explore-img-container mt-2">
-              <Image src={image} className="explore-img"/>
-            </div>
-            <div className="p-4">
-              <Row className="my-2">
-                <Col md={3}><span><strong>Details :</strong></span></Col>
-                <Col md={9}>{details}</Col>
-              </Row>
-              <Row className="my-2">
-                <Col md={3}><span><strong>Location :</strong></span></Col>
-                <Col md={9}>{location}</Col>
-              </Row>
-              <Row className="my-2">
-                <Col md={3}><span><strong>Rating :</strong></span></Col>
-                <Col md={3}>
-                <Rating value={rating}/>                
-                </Col>
-                <Col md={6}>
-                <Form.Control
-                  as='select'
-                  value={rating}
-                  onChange={(e) => setRating(e.target.value)}>
-                  <option value=''>Select...</option>
-                  <option value='1'>1 - Poor</option>
-                  <option value='2'>2 - Fair</option>
-                  <option value='3'>3 - Good</option>
-                  <option value='4'>4 - Very Good</option>
-                  <option value='5'>5 - Excellent</option>
-                </Form.Control>
-                </Col>
-              </Row>
-              <Row className="my-2">
-                <Col md={3}><span><strong>Privacy :</strong></span></Col>
-                <Col md={9}>{isPublic?("Public"):("Private")}</Col>
-              </Row>
-              {/* <Row className="my-2">
+          <Row >
+            <Col md={12}>
+              <span className="explore-post-title">- {title} -</span>
+              <div className="explore-img-container mt-2">
+                <Image src={image} className="explore-img" />
+              </div>
+              <div className="p-4">
+                <Row className="my-2">
+                  <Col md={3}><span><strong>Details :</strong></span></Col>
+                  <Col md={9}>{details}</Col>
+                </Row>
+                <Row className="my-2">
+                  <Col md={3}><span><strong>Location :</strong></span></Col>
+                  <Col md={9}>{location}</Col>
+                </Row>
+                <Row className="my-2">
+                  <Col md={3}><span><strong>Rating :</strong></span></Col>
+                  <Col md={3}>
+                    <Rating value={rating} />
+                  </Col>
+                  <Col md={6}>
+                    <Form.Control
+                      as='select'
+                      value={rating}
+                      onChange={(e) => setRating(Number(e.target.value))}>
+                      <option value=''>Select...</option>
+                      <option value='1'>1 - Poor</option>
+                      <option value='2'>2 - Fair</option>
+                      <option value='3'>3 - Good</option>
+                      <option value='4'>4 - Very Good</option>
+                      <option value='5'>5 - Excellent</option>
+                    </Form.Control>
+                  </Col>
+                </Row>
+                <Row className="my-2">
+                  <Col md={3}><span><strong>Privacy :</strong></span></Col>
+                  <Col md={9}>{isPublic ? ("Public") : ("Private")}</Col>
+                </Row>
+                {/* <Row className="my-2">
                 <Col md={3}><span><strong>Like the Post :</strong></span></Col>
                 <Col md={9}>
                   <Button variant='success btn-sm' onClick={submitHandler}>Like</Button>
@@ -186,22 +196,22 @@ const EditExplorePage = () => {
                   <Form.Check type='radio' label='No' id='chkNo' name='chkNo' value='No' onChange={(e) => setYesNo(e.target.value, 2)}></Form.Check>
                 </Col>
               </Row> */}
-              <Row className="my-2">
-                <Col md={3}><span><strong>Your Comment :</strong></span></Col>
-                <Col md={9}>
-                  <Form.Control type='text' placeholder='Enter comment here' value={comment} onChange={(e)=>setComment(e.target.value)}></Form.Control>
-                </Col>
-              </Row>
-              <Row>
-                <Col md={5}></Col>
-                <Col md={2}>
-                  <Button variant='primary' className='my-2' onClick={submitHandler}>Submit</Button>
-                </Col>
-                <Col md={5}></Col>
-              </Row>
-            </div>
-          </Col>
-        </Row>
+                <Row className="my-2">
+                  <Col md={3}><span><strong>Your Comment :</strong></span></Col>
+                  <Col md={9}>
+                    <Form.Control type='text' placeholder='Enter comment here' value={comment} onChange={(e) => setComment(e.target.value)}></Form.Control>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={5}></Col>
+                  <Col md={2}>
+                    <Button variant='primary' className='my-2' onClick={submitHandler}>Submit</Button>
+                  </Col>
+                  <Col md={5}></Col>
+                </Row>
+              </div>
+            </Col>
+          </Row>
         </div>
       </div>
     </div>

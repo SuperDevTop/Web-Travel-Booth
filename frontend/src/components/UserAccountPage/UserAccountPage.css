@@ -133,7 +133,6 @@
     min-height: 195px;
     display: flex;
     flex-direction: column;
-    overflow: scroll;
 }
 
 .tab-content-user > .tab-pane {

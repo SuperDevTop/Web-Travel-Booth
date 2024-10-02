@@ -9,8 +9,8 @@ const reviewSchema = new mongoose.Schema({
       type: String,
   },
   rating: {
-        type: Number,
-    },
+      type: Number,
+  },
   liked: {
     type: Boolean, default: false,
   },
