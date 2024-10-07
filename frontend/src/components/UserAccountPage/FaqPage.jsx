@@ -29,7 +29,6 @@ const FaqPage = () => {
 
                 const { data } = await axios.get("/api/admin/faqs", config);
                 setFaqs(data.message);
-                console.log(faqs)
             } catch (error) { }
         };
         getFaqs();

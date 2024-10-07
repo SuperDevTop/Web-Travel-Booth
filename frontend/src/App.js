@@ -36,6 +36,8 @@ import UserEdit from "./components/Admin/Users/UserEdit";
 import AddPost from "./components/Admin/Posts/AddPost";
 import AddUser from "./components/Admin/Users/AddUser";
 import FaqPage from "./components/UserAccountPage/FaqPage";
+import Terms from "./components/Terms/Terms";
+import Privacy from "./components/Terms/Privacy";
 // import ForgotPassword from "./components/Authentication/ForgotPassword";
 
 // function App() {
@@ -113,6 +115,8 @@ class App extends React.Component {
           <Route path="/aboutus" component={AboutUs} />
           <Route path='/resetpassword/:id' component={ResetPassword} />
           <Route path='/emailverify/:id' component={EmailVerify} />
+          <Route path="/terms" component={Terms} />
+          <Route path="/privacy" component={Privacy} />
 
           <Route path="/admin/dashboard" component={DashboardPage} />      
           <Route path="/admin/users" component={UsersPage} />  
