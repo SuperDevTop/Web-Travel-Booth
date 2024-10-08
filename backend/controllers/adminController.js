@@ -3,6 +3,8 @@ import Post from '../models/postModel.js';
 import Chat from '../models/chatModel.js';
 import User from '../models/userModel.js';
 import Faq from '../models/faqModel.js';
+import Terms from '../models/termsModel.js';
+import Privacy from '../models/privacyModel.js';
 import fs from 'fs';
 
 //@description     Fetch top 5 commented posts
@@ -245,6 +247,111 @@ const deleteFaq = asyncHandler(async (req, res) => {
   }
 });
 
+//@description     submit Terms
+//@route           POST /api/admin/submitterms
+//@access          Protected
+const submitTerms= asyncHandler(async (req, res) => {
+  try {
+    const { term, description } = req.body;
+    const results = await Terms.create({ title: term, description });
+    if (results)
+      res.status(200).send({ message: results, state: "OK" });
+    else
+      res.status(200).send({ message: "", state: "NO" });
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+//@description     submit Policy
+//@route           POST /api/admin/submitpolicy
+//@access          Protected
+const submitPolicy= asyncHandler(async (req, res) => {
+  try {
+    const { policy, description } = req.body;
+    const results = await Privacy.create({ title: policy, description });
+    if (results)
+      res.status(200).send({ message: results, state: "OK" });
+    else
+      res.status(200).send({ message: "", state: "NO" });
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+//@description     Delete Terms
+//@route           DELETE /api/admin/deleteterms
+//@access          Protected
+const deleteTerms = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.body;
+    const faq = await Terms.findById({_id: id});
+    if (faq) {
+      await Terms.deleteOne({ _id: id });
+      res.json({ message: 'Terms removed' });
+    } else {
+      res.status(404);
+      throw new Error('Terms not found');
+    }
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+//@description     Delete Policy
+//@route           DELETE /api/admin/deletepolicy
+//@access          Protected
+const deletePolicy = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.body;
+    const faq = await Privacy.findById({_id: id});
+    if (faq) {
+      await Privacy.deleteOne({ _id: id });
+      res.json({ message: 'Policy removed' });
+    } else {
+      res.status(404);
+      throw new Error('Policy not found');
+    }
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+//@description     Fetch Terms
+//@route           GET /api/admin/terms
+//@access          Protected
+const fetchTerms = asyncHandler(async (req, res) => {
+  try {
+    const results = await Terms.find({});
+    if (results)
+      res.status(200).send({ message: results, state: "OK" });
+    else
+      res.status(200).send({ message: "", state: "NO" });
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+//@description     Fetch Policy
+//@route           GET /api/admin/terms
+//@access          Protected
+const fetchPolicy = asyncHandler(async (req, res) => {
+  try {
+    const results = await Privacy.find({});
+    if (results)
+      res.status(200).send({ message: results, state: "OK" });
+    else
+      res.status(200).send({ message: "", state: "NO" });
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
 export {
   fetchTopPosts,
   fetchPosts,
@@ -257,4 +364,10 @@ export {
   submitFaq,
   submitQuestion,
   deleteFaq,
+  submitPolicy,
+  submitTerms,
+  deletePolicy,
+  deleteTerms,
+  fetchPolicy,
+  fetchTerms
 };

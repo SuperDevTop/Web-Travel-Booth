@@ -78,6 +78,12 @@ class AdminSidebar extends React.Component {
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Enquiry</span>
             </Nav.Link>
           </Nav.Item>
+          <Nav.Item className="w-100">
+            <Nav.Link href="/admin/terms" className="w-100">
+              <i className="bi bi-question-circle sidebar-item-icon" />
+              <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Terms</span>
+            </Nav.Link>
+          </Nav.Item>
           {/* </Link> */}
           <Nav.Item onClick={this.logoutHandler} className="w-100">
             <Nav.Link >

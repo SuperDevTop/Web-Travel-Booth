@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios';
 
 const Privacy = () => {
+    const [policys, setPolicys] = useState([]);
     const user = JSON.parse(localStorage.getItem("userInfo"));
     useEffect(() => {
         if (user) {
@@ -12,37 +14,34 @@ const Privacy = () => {
                 document.getElementById("AdminSidebar").style.display = "none";
             }
         }
+        const config = {
+            headers: {
+                Authorization: `Bearer ${user.token}`,
+            },
+        };
+        const fetchPolicys = async () => {
+            const { data } = await axios.get("/api/admin/policy", config);
+            setPolicys(data.message);
+        }
+        fetchPolicys();
     }, [])
     return (
-        <div className="notificationPage-container w-100 bg-white">
-            <div className="notifications-container bg-white py-4 px-5">
-                <div className='d-flex flex-column gap-2 mt-5'>
-                    <h1 className='text-center mb-4 mt-3 text-info' style={{fontSize:"1.5rem"}}>Privacy Policy</h1>
-                    <p>TravelBooth is committed to protecting your privacy. This policy outlines how we collect, use, and protect your personal information.</p>
-
-                    <h2>Information Collection</h2>
-                    <p>We collect personal data such as name, email address, and travel preferences, as well as non-personal data like browser type and referring URLs.</p>
-
-                    <h2>Use of Information</h2>
-                    <p>We use your information to enhance your experience on TravelBooth, such as providing personalized content and communicating new features or promotions.</p>
-
-                    <h2>Data Sharing and Disclosure</h2>
-                    <p>We do not sell your personal information to third parties. We may share data with partners to improve our services, under strict confidentiality agreements.</p>
-
-                    <h2>Data Security</h2>
-                    <p>We employ security measures to safeguard your information, including secure servers and data encryption protocols.</p>
-
-                    <h2>User Rights</h2>
-                    <p>You have the right to access, correct, or delete your personal data. Contact us at [contact email] for any requests related to your personal information.</p>
-
-                    <h2>Cookies and Tracking Technologies</h2>
-                    <p>Our site uses cookies to enhance your user experience. You can control cookie settings in your browser. Continued use of our site indicates consent to our use of cookies.</p>
-                    <h2>Policy Changes</h2>
-                    <p>We may update this privacy policy periodically. Changes will be posted on this page, and significant changes will be communicated via email.</p>
-
-                    <h2>Contact Information</h2>
-                    <p>For any questions about this privacy policy, please <a href="mailto:contact@travelbooth.com">contact us</a>.</p>
+        <div className="container-fluid pt-2 pb-5 h-100" id="about" style={{ backgroundColor: "white" }}>
+            <div className="container" style={{ marginTop: "75px" }}>
+                <div className="position-relative d-flex align-items-center justify-content-center pb-3">
+                    <h1 className="display-1 text-uppercase text-white" style={{ WebkitTextStroke: "1px #dee2e6", fontSize: "5rem" }}>Privacy</h1>
+                    <h1 className="position-absolute text-uppercase text-primary" style={{ fontSize: "2.5rem" }}>Policy</h1>
                 </div>
+                {
+                    policys.length > 0 ? policys.map((t, index) => (
+                        <>
+                            <h2 className='fs-3 mb-1 mt-3' key={index}>{t.title}</h2>
+                            <p>{t.description}</p>
+                        </>
+                    )) : (
+                        <h2>There is no any policy</h2>
+                    )
+                }
             </div>
         </div>
     )

@@ -8,7 +8,7 @@ const Footer = () => {
   // console.log(location);
   return (
     <>
-      {location.pathname !== "/" && (
+      {location.pathname !== "/" &&location.pathname !== "/forgotpassword" && (
         <>
           <ScrollToTop
             smooth

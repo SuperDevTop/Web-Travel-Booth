@@ -16,14 +16,16 @@ const ChatProvider = ({ children }) => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
     setUser(userInfo);
     console.log(location)
-    if(location.pathname.startsWith("/resetpassword")) {
+    if (location.pathname.startsWith("/resetpassword")) {
       console.log("ok")
-      return;      
-    }else if(location.pathname.startsWith("/emailverify")){
-      return; 
+      return;
+    } else if (location.pathname.startsWith("/emailverify")) {
+      return;
+    } else if (location.pathname.startsWith("/forgotpassword")) {
+      return;
     }
-    
-    if (!userInfo) history.push("/");
+
+      if (!userInfo) history.push("/");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 

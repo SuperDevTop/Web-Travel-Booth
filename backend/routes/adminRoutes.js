@@ -12,6 +12,12 @@ import {
   submitFaq,
   submitQuestion,
   deleteFaq,
+  submitTerms,
+  submitPolicy,
+  deleteTerms,
+  deletePolicy,
+  fetchTerms,
+  fetchPolicy,
 } from "../controllers/adminController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -28,5 +34,11 @@ router.route("/update_faqs").post(protect, updateFaqs);
 router.route("/submitfaq").post(protect, submitFaq);
 router.route("/submitquestion").post(protect, submitQuestion);
 router.route("/deletefaq").delete(protect, deleteFaq);
+router.route("/submitterms").post(protect, submitTerms);
+router.route("/submitpolicy").post(protect, submitPolicy);
+router.route("/deleteterms").delete(protect, deleteTerms);
+router.route("/deletepolicy").delete(protect, deletePolicy);
+router.route("/terms").get(protect, fetchTerms);
+router.route("/policy").get(protect, fetchPolicy);
 
 export default router;

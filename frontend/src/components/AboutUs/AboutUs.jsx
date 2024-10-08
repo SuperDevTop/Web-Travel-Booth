@@ -26,13 +26,11 @@ const AboutUs = () => {
                 };
                 const { data } = await axios.get('/api/user/admin', config);
                 setAdmin(data);
-                console.log("data", data)
             } catch (error) { }
         };
 
         getAdmin();
     }, []);
-    console.log("admin", admin)
     return (
         <>
             <div className="container-fluid pt-2 pb-5 h-100" id="about" style={{ backgroundColor: "white" }}>
@@ -42,7 +40,7 @@ const AboutUs = () => {
                         <h1 className="position-absolute text-uppercase text-primary" style={{ fontSize: "3.5rem" }}>About Us</h1>
                     </div>
                     {
-                        admin[0]?.pic === undefined ? (
+                        admin[0]=== undefined ? (
                             <Loader />
                         ) : (
                             <div className="row align-items-center pb-5">

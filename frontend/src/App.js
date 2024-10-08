@@ -38,6 +38,8 @@ import AddUser from "./components/Admin/Users/AddUser";
 import FaqPage from "./components/UserAccountPage/FaqPage";
 import Terms from "./components/Terms/Terms";
 import Privacy from "./components/Terms/Privacy";
+import AddTerms from "./components/Admin/Terms/AddTerms";
+// import ForgotPassword from "./components/Authentication/ForgotPassword";
 // import ForgotPassword from "./components/Authentication/ForgotPassword";
 
 // function App() {
@@ -113,6 +115,7 @@ class App extends React.Component {
           <Route path="/account" component={UserAccountPage} />
           <Route path="/faq" component={FaqPage} />
           <Route path="/aboutus" component={AboutUs} />
+          {/* <Route path="/forgotpassword" component={ForgotPassword} /> */}
           <Route path='/resetpassword/:id' component={ResetPassword} />
           <Route path='/emailverify/:id' component={EmailVerify} />
           <Route path="/terms" component={Terms} />
@@ -131,7 +134,8 @@ class App extends React.Component {
           <Route path='/admin/blogs/:id/view' component={BlogView} />
           <Route path='/admin/blogpost' component={BlogPost} />   
           <Route path='/admin/profile' component={Profile} />
-          <Route path="/admin/enquiry" component={EnquiryPage} />  
+          <Route path="/admin/enquiry" component={EnquiryPage} /> 
+          <Route path="/admin/terms" component={AddTerms} /> 
           <Route path="/*" component={NotFound} />
         </Switch>
         <Footer />    

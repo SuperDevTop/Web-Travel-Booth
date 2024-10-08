@@ -7,6 +7,7 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { ChatState } from "../../Context/ChatProvider";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Login = () => {
   const [show, setShow] = useState(false);
@@ -148,7 +149,8 @@ const Login = () => {
           >
             Login
           </Button>
-          <p onClick={() => setStatus(!status)}>Forget Password</p>
+          {/* <Link to="/forgotpassword">Forget Password</Link> */}
+          <Link onClick={() => setStatus(!status)}>Forget Password</Link>
           {/* <Link href='/resetpassword/536aa0c624ea4c2d0b998b8049b05ab32d97038d'>reset</Link> */}
         </>
       ) : (
@@ -171,7 +173,7 @@ const Login = () => {
           >
             Reset
           </Button>
-          <p onClick={() => setStatus(!status)} >Back To Login</p>
+          <Link onClick={() => setStatus(!status)} >Back To Login</Link>
         </>
       )}
     </VStack>
