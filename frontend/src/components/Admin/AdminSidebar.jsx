@@ -80,7 +80,7 @@ class AdminSidebar extends React.Component {
           </Nav.Item>
           <Nav.Item className="w-100">
             <Nav.Link href="/admin/terms" className="w-100">
-              <i className="bi bi-question-circle sidebar-item-icon" />
+              <i className="bi bi-shield sidebar-item-icon" />
               <span className="sidebar-item-text d-none d-sm-none d-md-none d-lg-inline">Terms</span>
             </Nav.Link>
           </Nav.Item>
